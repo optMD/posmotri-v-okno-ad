@@ -1,8 +1,8 @@
 /* КОНФИГ */
-const preloaderWaitindTime = 1200;
+const preloaderWaitindTime = 800;
 const cardsOnPage = 5;
-const BASE_URL = 'https://v-content.practicum-team.ru';
-const endpoint = `${BASE_URL}/api/videos?pagination[pageSize]=${cardsOnPage}&`;
+const BASE_URL = '';
+const endpoint = `?pagination[pageSize]=${cardsOnPage}&`;
 
 /* ЭЛЕМЕНТЫ СТРАНИЦЫ */
 const cardsList = document.querySelector('.content__list');
@@ -59,7 +59,7 @@ form.onsubmit = (e) => {
 
 async function mainMechanics(endpoint) {
   try {
-    const data = await (await fetch(endpoint)).json();
+    const data = getMockData(endpoint);
     cardsOnPageState = data.results;
 
     if (!data?.results?.[0]) {
@@ -276,7 +276,7 @@ function showMoreCards({
     let currentPage = dataArray.pagination.page;
     let urlToFetch = `${initialEndpoint}pagination[page]=${(currentPage += 1)}&`;
     try {
-      let data = await (await fetch(urlToFetch)).json();
+      let data = getMockData(urlToFetch);
       buttonInDOM.remove();
       cardsOnPageState = cardsOnPageState.concat(data.results);
       appendCards({
